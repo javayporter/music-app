@@ -19,6 +19,7 @@ const App = () => {
   }, []);
 
   console.log(music);
+  console.log("searchterm", searchTerm);
 
   return (
     <div className="App">
@@ -29,6 +30,7 @@ const App = () => {
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
+            searchMusic(searchTerm);
           }}
         />
         <button
@@ -43,9 +45,23 @@ const App = () => {
         style={{ border: "solid", borderColor: "red" }}
         className="container"
       >
-        {music.map((item) => (
-          <MusicCard record={item} />
-        ))}
+        {music?.length > 0 && searchTerm !== "" ? (
+          <div
+            style={{ border: "solid", borderColor: "red" }}
+            className="container"
+          >
+            {music.map((item) => (
+              <MusicCard record={item} />
+            ))}
+          </div>
+        ) : (
+          <div
+            style={{ border: "solid", borderColor: "red" }}
+            className="container"
+          >
+            Hi, Code God!
+          </div>
+        )}
       </div>
       <h1>{music.resultCount}</h1>
     </div>
@@ -53,3 +69,13 @@ const App = () => {
 };
 
 export default App;
+
+// next steps
+
+/* 
+-load search results as user types in input field
+-load next set of data results returned on scroll
+-display specific records/content on page load then 
+display searched results (do not display results before user interacts with input field)
+-create button component 
+*/
